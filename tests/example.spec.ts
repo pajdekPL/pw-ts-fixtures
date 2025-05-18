@@ -1,22 +1,30 @@
-import { expect, test } from "@playwright/test";
+import { test } from "@fixtures/my-example.fixture";
+import { expect } from "@playwright/test";
 
-test("has title", async ({ page }) => {
-  // 1) add to spaces before page and and click ctrl+save and check if auto format is working
-  // 2) if it works let's check why we have this red error in the line 6(it should show error if not something is wrong with our setup)
-  page.goto("https://playwright.dev/");
+test("use you own mock data from the fixture", ({ someMockData }) => {
+  console.log(someMockData);
+
+  expect(someMockData).toBeDefined();
+  expect(someMockData.id).toBe(1);
+  expect(someMockData.name).toBe("some name");
 });
 
-test("get started link", async ({ page }) => {
-  // unused variable also should be highlighted
-  const someUnusedConst = "I'm not used";
+test("use our data from the API", ({ someAPIData }) => {
+  console.log(someAPIData);
 
+  expect(someAPIData).toBeDefined();
+  expect(someAPIData.length).toBe(100);
 
-  // 3) after saving the file, indentation should be fixed
-      await page.goto("https://playwright.dev/");
+  expect(someAPIData[0].title).toBeDefined();
+  expect(someAPIData[0].body).toBeDefined();
+  expect(someAPIData[0].userId).toBeDefined();
+  expect(someAPIData[0].id).toBeDefined();
+});
 
-    await page.getByRole("link", { name: "Get started" }).click();
+test("page fixture example", async ({ examplePage }) => {
+  const header = examplePage.getByRole("heading", { name: "Example Domain" });
 
-  await expect(
-    page.getByRole("heading", { name: "Installation" }),
-  ).toBeVisible();
+  await expect(header).toBeVisible();
+
+  console.log("\n\nTEST IS FINISHED\n\n");
 });
