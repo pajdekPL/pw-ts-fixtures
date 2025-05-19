@@ -1,13 +1,44 @@
-import { test } from "@fixtures/my-example.fixture";
-import { expect } from "@playwright/test";
+import { test as exampleFixture } from "@fixtures/my-example.fixture";
+import { test as additionalFixture } from "@fixtures/worker-scoped.fixture";
+import { expect, mergeTests } from "@playwright/test";
 
-test("use you own mock data from the fixture", ({ someMockData }) => {
-  console.log(someMockData);
+const test = mergeTests(exampleFixture, additionalFixture);
 
-  expect(someMockData).toBeDefined();
-  expect(someMockData.id).toBe(1);
-  expect(someMockData.name).toBe("some name");
-});
+test(
+  "use you own mock data from the fixture",
+  { tag: ["@scope"] },
+  ({ someMockData }) => {
+    console.log(someMockData);
+
+    expect(someMockData).toBeDefined();
+    expect(someMockData.id).toBe(1);
+    expect(someMockData.name).toBe("some name");
+  },
+);
+
+test(
+  "use you own mock data from the fixture 2",
+  { tag: ["@scope"] },
+  ({ someMockData }) => {
+    console.log(someMockData);
+
+    expect(someMockData).toBeDefined();
+    expect(someMockData.id).toBe(1);
+    expect(someMockData.name).toBe("some name");
+  },
+);
+
+test(
+  "use you own mock data from the fixture 3",
+  { tag: ["@scope"] },
+  ({ someMockData }) => {
+    console.log(someMockData);
+
+    expect(someMockData).toBeDefined();
+    expect(someMockData.id).toBe(1);
+    expect(someMockData.name).toBe("some name");
+  },
+);
 
 test("use our data from the API", ({ someAPIData }) => {
   console.log(someAPIData);

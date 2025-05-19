@@ -8,13 +8,15 @@ Clone this repo and execute:
 
 ```bash
 npm install
+npx playwright install --with-deps chromium
 ```
 
-Then install [VSC](https://code.visualstudio.com/) with recommended extensions and open this repository in it.
-VSC recommended extensions
+## To run tests from CLI:
 
-- ms-playwright.playwright
-- dbaeumer.vscode-eslint
-- pkief.material-icon-theme
-- streetsidesoftware.code-spell-checker
-- mattpocock.ts-error-translator
+```bash
+npx playwright test --grep @scope --workers 1
+npx playwright test --grep @scope --workers 3
+
+
+npx playwright test --grep @auto-fixture --workers 1
+```

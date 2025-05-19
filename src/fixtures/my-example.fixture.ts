@@ -5,34 +5,12 @@ import { test as base, expect, Page } from "@playwright/test";
 interface MyFixtures {
   someAPIData: APIPosts;
   examplePage: Page;
-  someMockData: MockData;
-}
-
-interface MockData {
-  id: number;
-  name: string;
-  body: string;
 }
 
 const API_URL_POSTS = "https://jsonplaceholder.typicode.com/posts";
 // Extend base test by providing "myData" and "examplePage".
 // This new "test" can be used in multiple test files, and each of them will get the fixtures.
 export const test = base.extend<MyFixtures>({
-  // eslint-disable-next-line no-empty-pattern
-  someMockData: async ({}, use) => {
-    // Set up the fixture.
-    console.log("someMockData fixture is going to be set up");
-    const data: MockData = {
-      id: 1,
-      name: "some name",
-      body: "some body",
-    };
-
-    await use(data); // this is the data that is going to be used in your tests
-
-    // here you can clean up the fixture after the test
-    console.log("someMockData fixture is going to clean up after the test");
-  },
   someAPIData: async ({ request }, use) => {
     // Set up the fixture.
     console.log("myData fixture is going to be set up");
